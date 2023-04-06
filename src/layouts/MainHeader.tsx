@@ -31,8 +31,8 @@ function MainHeader() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   // Menu for desktop devices
-  const handleMenuOpen = (event: Event): void => {
-    setAnchorEl(event.currentTarget as HTMLElement);
+  const handleMenuOpen = (event: any): void => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
@@ -40,8 +40,8 @@ function MainHeader() {
   };
 
   // Menu for mobile devices
-  const handleMobileMenuOpen = (event: Event) => {
-    setMobileMoreAnchorEl(event.currentTarget as HTMLElement);
+  const handleMobileMenuOpen = (event: any) => {
+    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
@@ -293,7 +293,7 @@ function MainHeader() {
               aria-label="user account"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={() => handleMenuOpen}
+              onClick={(e) => handleMenuOpen(e)}
               color="inherit"
               children={<AccountBoxIcon />}
             />
@@ -305,7 +305,7 @@ function MainHeader() {
               aria-label="more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
-              onClick={() => handleMobileMenuOpen}
+              onClick={(e) => handleMobileMenuOpen(e)}
               color="inherit"
             >
               <MoreIcon />
