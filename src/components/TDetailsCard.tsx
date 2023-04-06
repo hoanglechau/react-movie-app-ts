@@ -13,13 +13,48 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { dateConvert } from "../utils/converters";
 
-function TDetailsCard({ tvShowDetails, loading }) {
-  const [tvShowMessage, setTvShowMessage] = useState();
+interface Props {
+  tvShowDetails: {
+    id: number;
+    name: string;
+    poster_path: string;
+    vote_average: number;
+    vote_count: number;
+    first_air_date: string;
+    last_air_date: string;
+    number_of_seasons: number;
+    number_of_episodes: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    production_companies: { id: number; name: string }[];
+    status: string;
+  };
+  loading: boolean;
+}
+
+type TvShow = {
+  id: number;
+  name: string;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+};
+
+function TDetailsCard({ tvShowDetails, loading }: Props) {
+  const [tvShowMessage, setTvShowMessage] = useState<string>("");
   // This is for the conditional rendering of the favorite button
   const auth = useAuth();
 
-  const addFavoriteTvShow = (name, poster, voteAverage, voteCount, id) => {
-    let list = JSON.parse(localStorage.getItem("favoriteTvShows"));
+  const addFavoriteTvShow = (
+    name: string,
+    poster: string,
+    voteAverage: number,
+    voteCount: number,
+    id: number
+  ) => {
+    let list: TvShow[] = JSON.parse(
+      localStorage.getItem("favoriteTvShows") || "[]"
+    );
     if (list) {
       let itemId = [];
       for (const element of list) {
@@ -40,7 +75,7 @@ function TDetailsCard({ tvShowDetails, loading }) {
       }
     } else {
       localStorage.setItem("favoriteTvShows", JSON.stringify([]));
-      list = JSON.parse(localStorage.getItem("favoriteTvShows"));
+      list = JSON.parse(localStorage.getItem("favoriteTvShows") || "[]");
       list.push({
         id: id,
         name: name,
@@ -84,7 +119,7 @@ function TDetailsCard({ tvShowDetails, loading }) {
             <Box>
               <CardMedia
                 component="img"
-                alt={`${tvShowDetails.title}`}
+                alt={`${tvShowDetails.name}`}
                 src={`https://www.themoviedb.org/t/p/original/${tvShowDetails.poster_path}`}
                 sx={{
                   borderRadius: 5,
@@ -135,7 +170,7 @@ function TDetailsCard({ tvShowDetails, loading }) {
               <Typography sx={{ typography: { xs: "h5", md: "h6" } }}>
                 Overview
               </Typography>
-              <Typography variant="body">{`${tvShowDetails.overview}`}</Typography>
+              <Typography variant="body1">{`${tvShowDetails.overview}`}</Typography>
             </Stack>
 
             <Stack
