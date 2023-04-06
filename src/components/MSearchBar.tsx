@@ -49,13 +49,16 @@ function MSearchBar() {
   const navigate = useNavigate();
 
   // Handle search form submission
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const query = formData.get("q");
-    setSearchParams({ query });
-    // Allow for using the search function anywhere on the website
-    navigate(`/?q=${query}`);
+    const formValue = formData.get("q");
+    if (formValue) {
+      const query = formValue?.toString();
+      setSearchParams({ query });
+      // Allow for using the search function anywhere on the website
+      navigate(`/?q=${query}`);
+    }
   }
 
   return (
