@@ -11,16 +11,21 @@ import TopMovies from "../pages/TopMovies";
 import PopularPeople from "../pages/PopularPeople";
 import TopTvShows from "../pages/TopTvShows";
 import TvShowDetails from "../pages/TvShowDetails";
+import { ReactNode } from "react";
+
+interface Props {
+  children: ReactNode;
+}
 
 // This component is used to protect the /favorite route
-function RequireAuth({ children }) {
+function RequireAuth({ children }: Props): JSX.Element {
   const location = useLocation();
   const auth = useAuth();
 
   if (!auth.user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-  return children;
+  return children as JSX.Element;
 }
 
 // This component is used to render the routes
