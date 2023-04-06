@@ -6,8 +6,22 @@ import TDetailsCard from "../components/TDetailsCard";
 
 function TvShowDetails() {
   const { tvId } = useParams();
-  const [loading, setLoading] = useState();
-  const [tvShowDetails, setTvShowDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [tvShowDetails, setTvShowDetails] = useState({
+    id: 0,
+    name: "",
+    poster_path: "",
+    vote_average: 0,
+    vote_count: 0,
+    first_air_date: "",
+    last_air_date: "",
+    number_of_seasons: 0,
+    number_of_episodes: 0,
+    overview: "",
+    genres: [],
+    production_companies: [],
+    status: ""
+  });
 
   // Fetch TV show details
   useEffect(() => {
@@ -19,7 +33,7 @@ function TvShowDetails() {
         );
         setTvShowDetails(res.data);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
