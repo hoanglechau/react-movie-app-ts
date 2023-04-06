@@ -7,7 +7,19 @@ import MDetailsCard from "../components/MDetailsCard";
 function MovieDetails() {
   const { movieId } = useParams();
   const [loading, setLoading] = useState(false);
-  const [movieDetails, setMovieDetails] = useState(null);
+  const [movieDetails, setMovieDetails] = useState({
+    id: 0,
+    title: "",
+    poster_path: "",
+    vote_average: 0,
+    vote_count: 0,
+    release_date: "",
+    runtime: 0,
+    overview: "",
+    genres: [],
+    tagline: "",
+    production_companies: []
+  });
 
   // Fetch movie details
   useEffect(() => {
@@ -19,7 +31,7 @@ function MovieDetails() {
         );
         setMovieDetails(res.data);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
