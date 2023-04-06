@@ -1,7 +1,6 @@
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -9,11 +8,22 @@ import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext.jsx";
-import { FormProvider, FTextField } from "./form/index.js";
+import { useAuth } from "../contexts/AuthContext";
+import { FTextField, FormProvider } from "./form/index";
+
+type Data = {
+  username: string;
+  password: string;
+};
+
+const CustomStack = styled(Stack)({
+  spacing: 3,
+  xs: 3
+}) as typeof Stack;
 
 function Form() {
   let navigate = useNavigate();
@@ -35,13 +45,13 @@ function Form() {
 
   const {
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { isSubmitting }
   } = methods;
 
   const [showPassword, setShowPassword] = useState(false);
 
   // Handle login form submission
-  const onSubmit = (data) => {
+  const onSubmit = (data: Data) => {
     auth.signin(data.username, () => {
       // Redirect to the page user was trying to access before login
       navigate(from, { replace: true });
@@ -72,10 +82,7 @@ function Form() {
               Login
             </Typography>
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-              <Stack spacing={3} xs={3}>
-                {errors.afterSubmit && (
-                  <Alert severity="error">{errors.afterSubmit.message}</Alert>
-                )}
+              <CustomStack>
                 <FTextField name="username" label="Username" />
                 <FTextField
                   name="password"
@@ -97,7 +104,7 @@ function Form() {
                     )
                   }}
                 />
-              </Stack>
+              </CustomStack>
               <Stack>
                 <LoadingButton
                   size="large"
