@@ -7,13 +7,21 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import "../styles.css";
 
-function PCard({ item }) {
+interface Props {
+  item: {
+    id: number;
+    name: string;
+    profile_path: string;
+  };
+}
+
+function PCard({ item }: Props) {
   return (
     <Card
       className="card"
       sx={{ width: { xs: 130, md: 200 }, borderRadius: 2 }}
     >
-      <CardActionArea LinkComponent={Link} to={`/person/${item.id}`}>
+      <CardActionArea component={Link} to={`/person/${item.id}`}>
         <Box
           display="flex"
           flexDirection="column"
