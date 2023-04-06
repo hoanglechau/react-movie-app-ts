@@ -4,9 +4,14 @@ import {
   createTheme,
   ThemeProvider as MUIThemeProvider
 } from "@mui/material/styles";
+import { ReactNode } from "react";
+
+interface Props {
+  children: ReactNode;
+}
 
 // Create a theme instance
-function ThemeProvider({ children }) {
+function ThemeProvider({ children }: Props) {
   const themeOptions = {
     palette: {
       primary: {
@@ -43,7 +48,7 @@ function ThemeProvider({ children }) {
     },
     components: {
       MuiCssBaseline: {
-        styleOverrides: (themeParam) => ({
+        styleOverrides: (themeParam: any) => ({
           body: darkScrollbar()
         })
       }
