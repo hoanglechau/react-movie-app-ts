@@ -11,8 +11,14 @@ import apiService from "../api/apiService";
 import { API_KEY } from "../api/config";
 import PCard from "../components/PCard";
 
+type Person = {
+  id: number;
+  name: string;
+  profile_path: string;
+};
+
 function PopularPeople() {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [personList, setPersonList] = useState([]);
   const { pageId } = useParams();
 
@@ -26,7 +32,7 @@ function PopularPeople() {
         );
         setPersonList(res.data.results);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
@@ -56,7 +62,7 @@ function PopularPeople() {
                 {detailSkeleton}
               </Grid>
             ))
-          : personList.map((item) => (
+          : personList.map((item: Person) => (
               <Grid key={item.id} item xs={6} sm={4} md={3}>
                 <PCard key={item.id} item={item} />
               </Grid>
