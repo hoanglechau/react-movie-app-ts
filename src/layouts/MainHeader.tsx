@@ -24,14 +24,15 @@ function MainHeader() {
   const location = useLocation();
   const auth = useAuth();
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+    useState<HTMLElement | null>(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   // Menu for desktop devices
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleMenuOpen = (event: Event): void => {
+    setAnchorEl(event.currentTarget as HTMLElement);
   };
 
   const handleMenuClose = () => {
@@ -39,8 +40,8 @@ function MainHeader() {
   };
 
   // Menu for mobile devices
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+  const handleMobileMenuOpen = (event: Event) => {
+    setMobileMoreAnchorEl(event.currentTarget as HTMLElement);
   };
 
   const handleMobileMenuClose = () => {
@@ -287,22 +288,24 @@ function MainHeader() {
             />
 
             <IconButton
+              component={Button}
               size="large"
               aria-label="user account"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleMenuOpen}
+              onClick={() => handleMenuOpen}
               color="inherit"
               children={<AccountBoxIcon />}
             />
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
+              component={Button}
               size="large"
               aria-label="more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
+              onClick={() => handleMobileMenuOpen}
               color="inherit"
             >
               <MoreIcon />
