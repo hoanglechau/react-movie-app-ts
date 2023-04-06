@@ -11,8 +11,16 @@ import apiService from "../api/apiService";
 import { API_KEY } from "../api/config";
 import MCard from "../components/MCard";
 
+type Movie = {
+  id: number;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+  poster_path: string;
+};
+
 function TopMovies() {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const { pageId } = useParams();
 
@@ -26,7 +34,7 @@ function TopMovies() {
         );
         setMovieList(res.data.results);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
@@ -56,7 +64,7 @@ function TopMovies() {
                 {detailSkeleton}
               </Grid>
             ))
-          : movieList.map((item) => (
+          : movieList.map((item: Movie) => (
               <Grid key={item.id} item xs={6} sm={3} md={3}>
                 <MCard key={item.id} item={item} />
               </Grid>
