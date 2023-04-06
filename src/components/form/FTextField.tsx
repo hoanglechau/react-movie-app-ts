@@ -4,6 +4,10 @@ import { Controller, useFormContext } from "react-hook-form";
 interface Props {
   name: string;
   label: string;
+  type?: string;
+  InputProps?: {
+    endAdornment: JSX.Element;
+  };
 }
 
 function FTextField({ name, label, ...other }: Props) {
