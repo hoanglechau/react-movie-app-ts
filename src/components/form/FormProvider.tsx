@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
 import { FormProvider as RHFormProvider } from "react-hook-form";
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   methods: any;
 }
