@@ -23,7 +23,7 @@ function Home() {
         const result = res.data.results;
         setTrendingList(result);
         setLoadingTrending(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
