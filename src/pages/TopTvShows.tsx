@@ -11,8 +11,16 @@ import apiService from "../api/apiService";
 import { API_KEY } from "../api/config";
 import TCard from "../components/TCard";
 
+type TvShow = {
+  id: number;
+  name: string;
+  vote_average: number;
+  vote_count: number;
+  poster_path: string;
+};
+
 function TopTvShows() {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [tvShowList, setTvShowList] = useState([]);
   const { pageId } = useParams();
 
@@ -26,7 +34,7 @@ function TopTvShows() {
         );
         setTvShowList(res.data.results);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
@@ -56,7 +64,7 @@ function TopTvShows() {
                 {detailSkeleton}
               </Grid>
             ))
-          : tvShowList.map((item) => (
+          : tvShowList.map((item: TvShow) => (
               <Grid key={item.id} item xs={6} sm={4} md={3}>
                 <TCard key={item.id} item={item} />
               </Grid>
