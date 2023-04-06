@@ -15,12 +15,25 @@ import apiService from "../api/apiService";
 import { API_KEY } from "../api/config";
 import MCard from "./MCard";
 
+type Movie = {
+  id: number;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+  poster_path: string;
+};
+
+type Genre = {
+  id: number;
+  name: string;
+};
+
 function Movies() {
   const [openGenres, setOpenGenres] = useState(false);
   const [loading, setLoading] = useState(false);
   const [genresList, setGenresList] = useState([]);
   const [movieList, setMovieList] = useState([]);
-  const [genreId, setGenreId] = useState("");
+  const [genreId, setGenreId] = useState<number>();
   const [searchParams] = useSearchParams();
   const q = searchParams.get("q");
 
@@ -34,7 +47,7 @@ function Movies() {
         );
         setGenresList(res.data.genres);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
@@ -52,7 +65,7 @@ function Movies() {
           setMovieList(res.data.results);
         }
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
@@ -77,7 +90,7 @@ function Movies() {
           setMovieList(res.data.results);
         }
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
@@ -108,12 +121,12 @@ function Movies() {
                 </Grid>
               ))
             : q
-            ? movieList.map((item) => (
+            ? movieList.map((item: Movie) => (
                 <Grid key={item.id} item xs={6} sm={3} md={4} lg={3}>
                   <MCard key={item.id} item={item} />
                 </Grid>
               ))
-            : movieList.map((item) => (
+            : movieList.map((item: Movie) => (
                 <Grid key={item.id} item xs={8} sm={4} md={4} lg={3}>
                   <MCard key={item.id} item={item} />
                 </Grid>
@@ -158,7 +171,7 @@ function Movies() {
                 />
               </ListItemButton>
               {openGenres &&
-                genresList.map((item) => (
+                genresList.map((item: Genre) => (
                   <ListItemButton
                     key={item.id}
                     onClick={() => setGenreId(item.id)}
