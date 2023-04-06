@@ -7,7 +7,16 @@ import PDetailsCard from "../components/PDetailsCard";
 function PersonDetails() {
   const { personId } = useParams();
   const [loading, setLoading] = useState(false);
-  const [personDetails, setPersonDetails] = useState(null);
+  const [personDetails, setPersonDetails] = useState({
+    id: 0,
+    name: "",
+    profile_path: "",
+    birthday: "",
+    deathday: "",
+    place_of_birth: "",
+    biography: "",
+    known_for_department: ""
+  });
 
   // Fetch person details
   useEffect(() => {
@@ -19,7 +28,7 @@ function PersonDetails() {
         );
         setPersonDetails(res.data);
         setLoading(false);
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.message);
       }
     };
