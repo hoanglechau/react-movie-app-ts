@@ -10,13 +10,23 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import "../styles.css";
 
-function MCard({ item }) {
+interface Props {
+  item: {
+    id: number;
+    title: string;
+    vote_average: number;
+    vote_count: number;
+    poster_path: string;
+  };
+}
+
+function MCard({ item }: Props) {
   return (
     <Card
       className="card"
       sx={{ width: { xs: 130, md: 200 }, borderRadius: 2 }}
     >
-      <CardActionArea LinkComponent={Link} to={`/movie/${item.id}`}>
+      <CardActionArea component={Link} to={`/movie/${item.id}`}>
         <Box
           display="flex"
           flexDirection="column"
