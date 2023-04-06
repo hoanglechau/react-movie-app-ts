@@ -7,7 +7,21 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { dateConvert } from "../utils/converters";
 
-function PDetailsCard({ personDetails, loading }) {
+interface Props {
+  personDetails: {
+    id: number;
+    name: string;
+    profile_path: string;
+    birthday: string;
+    deathday: string;
+    place_of_birth: string;
+    biography: string;
+    known_for_department: string;
+  };
+  loading: boolean;
+}
+
+function PDetailsCard({ personDetails, loading }: Props) {
   // Placeholder element for loading state
   const detailSkeleton = (
     <Stack spacing={1}>
@@ -42,7 +56,7 @@ function PDetailsCard({ personDetails, loading }) {
             <Box>
               <CardMedia
                 component="img"
-                alt={`${personDetails.title}`}
+                alt={`${personDetails.name}`}
                 src={`https://www.themoviedb.org/t/p/original/${personDetails.profile_path}`}
                 sx={{
                   borderRadius: 5,
@@ -136,7 +150,7 @@ function PDetailsCard({ personDetails, loading }) {
                 <Typography sx={{ typography: { xs: "h5", md: "h6" } }}>
                   Biography
                 </Typography>
-                <Typography variant="body">
+                <Typography variant="body1">
                   {`${personDetails.biography}`}
                 </Typography>
               </Stack>
