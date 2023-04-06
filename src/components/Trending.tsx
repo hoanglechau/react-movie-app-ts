@@ -5,7 +5,20 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import MCard from "./MCard";
 
-function Trending({ trendingList, loadingTrending }) {
+type Movie = {
+  id: number;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+  poster_path: string;
+};
+
+interface Props {
+  trendingList: Movie[];
+  loadingTrending: boolean;
+}
+
+function Trending({ trendingList, loadingTrending }: Props) {
   // Placeholders for loading state
   const placeholder = [0, 1, 2, 3, 4, 5];
   const detailSkeleton = (
@@ -36,12 +49,12 @@ function Trending({ trendingList, loadingTrending }) {
         sx={{ overflow: "auto" }}
       >
         {loadingTrending
-          ? placeholder.map((item) => (
+          ? placeholder.map((item: number) => (
               <Grid key={item} item xs={6} sm={4} md={3}>
                 {detailSkeleton}
               </Grid>
             ))
-          : trendingList?.map((item) => (
+          : trendingList?.map((item: Movie) => (
               <Grid key={item.id} item xs={6} sm={4} md={3}>
                 <MCard key={item.id} item={item} />
               </Grid>
