@@ -13,13 +13,46 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { dateConvert, timeConvert } from "../utils/converters";
 
-function MDetailsCard({ movieDetails, loading }) {
-  const [movieMessage, setMovieMessage] = useState();
+interface Props {
+  movieDetails: {
+    id: number;
+    title: string;
+    poster_path: string;
+    vote_average: number;
+    vote_count: number;
+    release_date: string;
+    runtime: number;
+    overview: string;
+    genres: { id: number; name: string }[];
+    tagline: string;
+    production_companies: { id: number; name: string }[];
+  };
+  loading: boolean;
+}
+
+type Movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+};
+
+function MDetailsCard({ movieDetails, loading }: Props) {
+  const [movieMessage, setMovieMessage] = useState<string>("");
   // This is for the conditional rendering of the favorite button
   const auth = useAuth();
 
-  const addFavoriteMovie = (title, poster, voteAverage, voteCount, id) => {
-    let list = JSON.parse(localStorage.getItem("favoriteMovies"));
+  const addFavoriteMovie = (
+    title: string,
+    poster: string,
+    voteAverage: number,
+    voteCount: number,
+    id: number
+  ): void => {
+    let list: Movie[] = JSON.parse(
+      localStorage.getItem("favoriteMovies") || "[]"
+    );
     if (list) {
       let itemId = [];
       for (const element of list) {
@@ -40,7 +73,7 @@ function MDetailsCard({ movieDetails, loading }) {
       }
     } else {
       localStorage.setItem("favoriteMovies", JSON.stringify([]));
-      list = JSON.parse(localStorage.getItem("favoriteMovies"));
+      list = JSON.parse(localStorage.getItem("favoriteMovies") || "[]");
       list.push({
         id: id,
         title: title,
@@ -142,7 +175,7 @@ function MDetailsCard({ movieDetails, loading }) {
               <Typography sx={{ typography: { xs: "h5", md: "h6" } }}>
                 Overview
               </Typography>
-              <Typography variant="body">
+              <Typography variant="body1">
                 {`${movieDetails.overview}`}
               </Typography>
             </Stack>
