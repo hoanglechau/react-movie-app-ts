@@ -4,9 +4,29 @@ import Typography from "@mui/material/Typography";
 import MCard from "../components/MCard";
 import TCard from "../components/TCard";
 
+type Movie = {
+  id: number;
+  title: string;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+};
+
+type TvShow = {
+  id: number;
+  name: string;
+  poster_path: string;
+  vote_average: number;
+  vote_count: number;
+};
+
 function Favorites() {
-  const movieList = JSON.parse(localStorage.getItem("favoriteMovies"));
-  const TvShowList = JSON.parse(localStorage.getItem("favoriteTvShows"));
+  const movieList: Movie[] = JSON.parse(
+    localStorage.getItem("favoriteMovies") || "[]"
+  );
+  const TvShowList: TvShow[] = JSON.parse(
+    localStorage.getItem("favoriteTvShows") || "[]"
+  );
 
   return (
     <>
